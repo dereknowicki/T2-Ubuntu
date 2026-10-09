@@ -12,8 +12,10 @@ PKGREL=1
 
 if [ "$FLAVOUR" = "ubuntustudio" ]; then
     ISO_IMAGE=${FLAVOUR}-24.04.4-dvd-amd64.iso
+    SQUASHFILE="casper/standard.squashfs"
 else
     ISO_IMAGE=${FLAVOUR}-24.04.4-desktop-amd64.iso
+    SQUASHFILE="casper/filesystem.squashfs"
 fi
 
 ISO_IMAGE_OUTPUT="${OUTPUT_PATH}/${FLAVOUR}-${VER}-${KERNEL_VERSION}-t2-${CODENAME}.iso"
@@ -86,7 +88,7 @@ echo >&2 "===]> Info: Reset firmware flag for fresh boot... "
 rm -f "${CHROOT_DIR}/etc/get_apple_firmware_attempted" || true
 
 echo >&2 "===]> Info: Squashing $(echo ${FLAVOUR} | cut -c1 | tr '[a-z]' '[A-Z]')$(echo ${FLAVOUR} | cut -c2-) file system ... "
-mksquashfs "$CHROOT_DIR" "$ISO_WORK_DIR/casper/filesystem.squashfs" -comp xz -noappend
+mksquashfs "$CHROOT_DIR" "$ISO_WORK_DIR/$SQUASHFILE" -comp xz -noappend
 
 # Run create_iso.sh to generate the new ISO
 # echo "Creating the custom ISO..."

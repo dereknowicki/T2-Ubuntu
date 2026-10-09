@@ -2,12 +2,6 @@
 
 set -eu -o pipefail
 
-if [ "$FLAVOUR" = "ubuntustudio" ]; then
-    SQUASHFILE="casper/standard.squashfs"
-else
-    SQUASHFILE="casper/filesystem.squashfs"
-fi
-
 # Prepare the ISO Directories
 mkdir -p "$ISO_MOUNT_DIR" "$ISO_WORK_DIR" "$CHROOT_DIR"
 # Mount the Original ISO and Copy Files
