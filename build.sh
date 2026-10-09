@@ -10,7 +10,12 @@ CODENAME=noble
 KERNEL_VERSION=7.1.8
 PKGREL=1
 
-ISO_IMAGE=${FLAVOUR}-24.04.4-desktop-amd64.iso
+if [ "$FLAVOUR" = "ubuntustudio" ]; then
+    ISO_IMAGE=${FLAVOUR}-24.04.4-dvd-amd64.iso
+else
+    ISO_IMAGE=${FLAVOUR}-24.04.4-desktop-amd64.iso
+fi
+
 ISO_IMAGE_OUTPUT="${OUTPUT_PATH}/${FLAVOUR}-${VER}-${KERNEL_VERSION}-t2-${CODENAME}.iso"
 
 ISO_WORK_DIR="$ROOT_PATH/${FLAVOUR}-iso"
