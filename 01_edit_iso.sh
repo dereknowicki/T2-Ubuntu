@@ -2,6 +2,8 @@
 
 set -eu -o pipefail
 
+SQUASHFILE=$1
+
 # Prepare the ISO Directories
 mkdir -p "$ISO_MOUNT_DIR" "$ISO_WORK_DIR" "$CHROOT_DIR"
 # Mount the Original ISO and Copy Files

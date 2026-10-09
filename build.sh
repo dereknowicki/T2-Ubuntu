@@ -54,7 +54,7 @@ echo >&2 "===]> Info: Starting extraction and customization..."
     ROOT_PATH=${ROOT_PATH} \\
     KERNEL_VERSION=${KERNEL_VERSION} \\
     FLAVOUR=${FLAVOUR} \\
-    $(pwd)/01_edit_iso.sh"
+    $(pwd)/01_edit_iso.sh $SQUASHFILE"
 
 # Enter the Chroot Environment and Apply Customizations
 echo >&2 "===]> Info: Creating chroot environment... "
