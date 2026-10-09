@@ -7,7 +7,7 @@ FLAVOUR=$1
 ISO_MOUNT_DIR="$ROOT_PATH/${FLAVOUR}-original"    # Temporary mount point for the original ISO
 VER=24.04
 CODENAME=noble
-KERNEL_VERSION=7.1.8
+KERNEL_VERSION=7.2.9
 PKGREL=1
 
 if [ "$FLAVOUR" = "ubuntustudio" ]; then
@@ -41,7 +41,6 @@ apt update && apt update && \
 	xorriso isolinux grub-efi-amd64-bin mtools dosfstools curl
 
 echo >&2 "===]> Info: Download ISO..."
-
 curl -L -o "$(pwd)/${ISO_IMAGE}" "https://cdimage.ubuntu.com/${FLAVOUR}/releases/${VER}/release/${ISO_IMAGE}"
  
 # Run entrypoint.sh to extract and customize the ISO
@@ -73,6 +72,9 @@ cp "$(pwd)/chroot_iso.sh" "${CHROOT_DIR}/tmp/setup_files"
 ls "${CHROOT_DIR}/tmp/setup_files"
 echo >&2 "===]> Info: Running chroot environment... "
 chroot "${CHROOT_DIR}" /bin/bash -c "KERNEL_VERSION=${KERNEL_VERSION} PKGREL=${PKGREL} /tmp/setup_files/chroot_iso.sh"
+
+# works up to here
+
 echo >&2 "===]> Info: Getting Kernel environment... "
 T2_KERNEL=${KERNEL_VERSION}-${PKGREL}-t2-${CODENAME}
 

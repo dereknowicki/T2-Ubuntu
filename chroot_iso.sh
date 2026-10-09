@@ -14,6 +14,8 @@ echo "deb [signed-by=/etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg] https://github.c
 apt update
 
 # Add Kernel Parameters to GRUB for Installed System
+touch /etc/default/grub
+ls -al /etc/default
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_iommu=on iommu=pt pm_async=off"/' /etc/default/grub
 update-grub
 apt install -y apple-t2-audio-config apple-firmware-script
