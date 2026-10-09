@@ -3,9 +3,9 @@
 set -eu -o pipefail
 
 if [ "$FLAVOUR" = "ubuntustudio" ]; then
-    SQUASHFILE = "casper/standard.squashfs"
+    SQUASHFILE="casper/standard.squashfs"
 else
-    SQUASHFILE = "casper/filesystem.squashfs"
+    SQUASHFILE="casper/filesystem.squashfs"
 fi
 
 # Prepare the ISO Directories
