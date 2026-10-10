@@ -76,7 +76,7 @@ chroot "${CHROOT_DIR}" /bin/bash -c "KERNEL_VERSION=${KERNEL_VERSION} PKGREL=${P
 # works up to here
 
 echo >&2 "===]> Info: Getting Kernel environment... "
-T2_KERNEL=${KERNEL_VERSION}-${PKGREL}-t2-${CODENAME}
+T2_KERNEL="${KERNEL_VERSION}-${PKGREL}-t2-${CODENAME}"
 
 echo >&2 "===]> Info: Cleanup the chroot environment... "
 # restore backup

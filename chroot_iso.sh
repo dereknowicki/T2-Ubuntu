@@ -43,7 +43,7 @@ curl -s https://raw.githubusercontent.com/t2linux/wiki/refs/heads/master/docs/to
 
 systemctl enable get-apple-firmware.service
 
-KERNEL_VERSION=$(dpkg -l | grep -E "^ii  linux-image-[0-9]+\.[0-9]+\.[0-9\.\-]+-generic" | awk '{print $2}' | sed 's/linux-image-\(.*\)-generic/\1/')
+# KERNEL_VERSION=$(dpkg -l | grep -E "^ii  linux-image-[0-9]+\.[0-9]+\.[0-9\.\-]+-generic" | awk '{print $2}' | sed 's/linux-image-\(.*\)-generic/\1/')
 #apt purge -y -qq \
 #    linux-generic \
 #    linux-headers-${KERNEL_VERSION} \
