@@ -35,7 +35,7 @@ apt update && apt update && \
 
 echo >&2 "===]> Info: Download ISO..."
 
-# curl -L -o "$(pwd)/${ISO_IMAGE}" "https://cdimage.ubuntu.com/${FLAVOUR}/releases/${VER}/release/${ISO_IMAGE}"
+curl -L -o "$(pwd)/${ISO_IMAGE}" "https://cdimage.ubuntu.com/${FLAVOUR}/releases/${VER}/release/${ISO_IMAGE}"
  
 # Run entrypoint.sh to extract and customize the ISO
 echo >&2 "===]> Info: Starting extraction and customization..."
