@@ -3,6 +3,9 @@ set -eu -o pipefail
 
 echo >&2 "===]> Info: Configure and update apt... "
 
+# prevents error The repository 'file:/cdrom resolute Release' does not have a Release file.
+rm -f /etc/apt/sources.list.d/cdrom.sources
+
 apt update
 apt install -y curl
 # Add T2 Repository and Install Packages

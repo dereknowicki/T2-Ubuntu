@@ -5,12 +5,12 @@ ROOT_PATH=$(pwd)/work
 OUTPUT_PATH=$(pwd)/output
 FLAVOUR=$1
 ISO_MOUNT_DIR="$ROOT_PATH/${FLAVOUR}-original"    # Temporary mount point for the original ISO
-VER=24.04
-CODENAME=noble
-KERNEL_VERSION=7.1.8
+VER=26.04
+CODENAME=resolute
+KERNEL_VERSION=7.2.10
 PKGREL=1
 
-ISO_IMAGE=${FLAVOUR}-24.04.4-desktop-amd64.iso
+ISO_IMAGE=${FLAVOUR}-26.04.1-desktop-amd64.iso
 ISO_IMAGE_OUTPUT="${OUTPUT_PATH}/${FLAVOUR}-${VER}-${KERNEL_VERSION}-t2-${CODENAME}.iso"
 
 ISO_WORK_DIR="$ROOT_PATH/${FLAVOUR}-iso"
@@ -35,7 +35,7 @@ apt update && apt update && \
 
 echo >&2 "===]> Info: Download ISO..."
 
-curl -L -o "$(pwd)/${ISO_IMAGE}" "https://cdimage.ubuntu.com/${FLAVOUR}/releases/${VER}/release/${ISO_IMAGE}"
+# curl -L -o "$(pwd)/${ISO_IMAGE}" "https://cdimage.ubuntu.com/${FLAVOUR}/releases/${VER}/release/${ISO_IMAGE}"
  
 # Run entrypoint.sh to extract and customize the ISO
 echo >&2 "===]> Info: Starting extraction and customization..."
@@ -51,6 +51,11 @@ echo >&2 "===]> Info: Starting extraction and customization..."
 
 # Enter the Chroot Environment and Apply Customizations
 echo >&2 "===]> Info: Creating chroot environment... "
+mkdir -p "${CHROOT_DIR}/dev"
+mkdir -p "${CHROOT_DIR}/dev/pts"
+mkdir -p "${CHROOT_DIR}/proc"
+mkdir -p "${CHROOT_DIR}/sys"
+
 # Mount Required Filesystems for Chroot
 mount --bind /dev "${CHROOT_DIR}/dev"
 mount --bind /dev/pts "${CHROOT_DIR}/dev/pts"
@@ -60,7 +65,7 @@ mount --bind /sys "${CHROOT_DIR}/sys"
 mkdir -p "${CHROOT_DIR}/tmp/setup_files"
 #rm -f "${CHROOT_DIR}/etc/resolv.conf"
 #make a back up
-cp -p "${CHROOT_DIR}/etc/resolv.conf" "${CHROOT_DIR}/etc/resolv.conf.backup"
+# cp -p "${CHROOT_DIR}/etc/resolv.conf" "${CHROOT_DIR}/etc/resolv.conf.backup"
 cp -p /etc/resolv.conf "${CHROOT_DIR}/etc/resolv.conf"
 cp "$(pwd)/chroot_iso.sh" "${CHROOT_DIR}/tmp/setup_files"
 ls "${CHROOT_DIR}/tmp/setup_files"
@@ -71,7 +76,7 @@ T2_KERNEL=${KERNEL_VERSION}-${PKGREL}-t2-${CODENAME}
 
 echo >&2 "===]> Info: Cleanup the chroot environment... "
 # restore backup
-cp -p "${CHROOT_DIR}/etc/resolv.conf.backup" "${CHROOT_DIR}/etc/resolv.conf"
+# cp -p "${CHROOT_DIR}/etc/resolv.conf.backup" "${CHROOT_DIR}/etc/resolv.conf"
 umount "${CHROOT_DIR}/dev/pts"
 umount "${CHROOT_DIR}/dev"
 umount "${CHROOT_DIR}/proc"
