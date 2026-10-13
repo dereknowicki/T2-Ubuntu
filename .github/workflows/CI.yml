@@ -50,65 +50,65 @@ jobs:
           cd ${{ github.workspace }}
           wget https://raw.githubusercontent.com/t2linux/T2-Ubuntu/refs/heads/LTS/.github/workflows/instructions.txt
 
-      - name: Release
-        if: github.ref == 'refs/heads/flav-ubuntustudio'
-        uses: softprops/action-gh-release@v3
-        with:
-          files: ${{ github.workspace }}/output/*
-          tag_name: v${{ env.isotag }}
-          body_path: ${{ github.workspace }}/instructions.txt
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Release
+      #   if: github.ref == 'refs/heads/flav-ubuntustudio'
+      #   uses: softprops/action-gh-release@v3
+      #   with:
+      #     files: ${{ github.workspace }}/output/*
+      #     tag_name: v${{ env.isotag }}
+      #     body_path: ${{ github.workspace }}/instructions.txt
+      #     draft: false
+      #     prerelease: false
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update the json
-        if: github.ref == 'refs/heads/flav-ubuntustudio'
-        run: |
-          git clone https://github.com/t2linux/wiki.git
-          cd wiki/docs/tools
+      # - name: Update the json
+      #   if: github.ref == 'refs/heads/flav-ubuntustudio'
+      #   run: |
+      #     git clone https://github.com/t2linux/wiki.git
+      #     cd wiki/docs/tools
+      #
+      #     cat << EOF > update.py
+      #     import json
+      #     # Define the new links
+      #     new_link1 = "https://github.com/t2linux/T2-Ubuntu/releases/download/v${{ env.isotag }}/ubuntustudio-26.04-${{ env.kver }}-t2-noble.iso.00"
+      #     new_link2 = "https://github.com/t2linux/T2-Ubuntu/releases/download/v${{ env.isotag }}/ubuntustudio-26.04-${{ env.kver }}-t2-noble.iso.01"
+      #     new_link3 = "https://github.com/t2linux/T2-Ubuntu/releases/download/v${{ env.isotag }}/ubuntustudio-26.04-${{ env.kver }}-t2-noble.iso.02"
+      #     new_link4 = "https://github.com/t2linux/T2-Ubuntu/releases/download/v${{ env.isotag }}/ubuntustudio-26.04-${{ env.kver }}-t2-noble.iso.03"
+      #     # Load the JSON file
+      #     with open('distro-metadata.json', 'r') as file:
+      #         data = json.load(file)
+      #     # Function to update the links
+      #     def update_links(distros, name, new_links, sha256):
+      #         for distro in distros:
+      #             if distro['name'] == name:
+      #                 distro['iso'] = new_links
+      #                 distro['sha256'] = sha256
+      #     # Update the links
+      #     update_links(data['all'], "Ubuntu Studio 26.04 - Resolute Raccoon", [new_link1, new_link2, new_link3, new_link4], "${{ env.sha256 }}")
+      #     # Save the updated JSON back to the file
+      #     with open('distro-metadata.json', 'w') as file:
+      #         json.dump(data, file, indent=2)
+      #     print("Links updated successfully.")
+      #     EOF
+      #
+      #     python3 update.py
+      #     rm update.py
+      #     cd -
 
-          cat << EOF > update.py
-          import json
-          # Define the new links
-          new_link1 = "https://github.com/t2linux/T2-Ubuntu/releases/download/v${{ env.isotag }}/ubuntustudio-26.04-${{ env.kver }}-t2-noble.iso.00"
-          new_link2 = "https://github.com/t2linux/T2-Ubuntu/releases/download/v${{ env.isotag }}/ubuntustudio-26.04-${{ env.kver }}-t2-noble.iso.01"
-          new_link3 = "https://github.com/t2linux/T2-Ubuntu/releases/download/v${{ env.isotag }}/ubuntustudio-26.04-${{ env.kver }}-t2-noble.iso.02"
-          new_link4 = "https://github.com/t2linux/T2-Ubuntu/releases/download/v${{ env.isotag }}/ubuntustudio-26.04-${{ env.kver }}-t2-noble.iso.03"
-          # Load the JSON file
-          with open('distro-metadata.json', 'r') as file:
-              data = json.load(file)
-          # Function to update the links
-          def update_links(distros, name, new_links, sha256):
-              for distro in distros:
-                  if distro['name'] == name:
-                      distro['iso'] = new_links
-                      distro['sha256'] = sha256
-          # Update the links
-          update_links(data['all'], "Ubuntu Studio 26.04 - Resolute Raccoon", [new_link1, new_link2, new_link3, new_link4], "${{ env.sha256 }}")
-          # Save the updated JSON back to the file
-          with open('distro-metadata.json', 'w') as file:
-              json.dump(data, file, indent=2)
-          print("Links updated successfully.")
-          EOF
-
-          python3 update.py
-          rm update.py
-          cd -
-
-      - name: Push updated links to t2linux.org
-        if: github.ref == 'refs/heads/flav-ubuntustudio'
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.PAT }}
-        with:
-          source-directory: 'wiki'
-          destination-github-username: 't2linux'
-          destination-repository-name: 'wiki'
-          user-email: github-actions[bot]@users.noreply.github.com
-          user-name: github-actions[bot]
-          target-branch: master
-          commit-message: Distro metadata - Update Ubuntu Studio 26.04 to v${{ env.isotag }}
+      # - name: Push updated links to t2linux.org
+      #   if: github.ref == 'refs/heads/flav-ubuntustudio'
+      #   uses: cpina/github-action-push-to-another-repository@main
+      #   env:
+      #     API_TOKEN_GITHUB: ${{ secrets.PAT }}
+      #   with:
+      #     source-directory: 'wiki'
+      #     destination-github-username: 't2linux'
+      #     destination-repository-name: 'wiki'
+      #     user-email: github-actions[bot]@users.noreply.github.com
+      #     user-name: github-actions[bot]
+      #     target-branch: master
+      #     commit-message: Distro metadata - Update Ubuntu Studio 26.04 to v${{ env.isotag }}
 
   ISO-Kubuntu:
     runs-on: ubuntu-latest
